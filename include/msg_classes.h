@@ -39,12 +39,16 @@ public:
     virtual ~NmeaGga() {}
     
     // Getters
+    float getLatitude() const { return _lat; }
+    float getLongitude() const { return _lon; }
     unsigned short getQuality() const { return _qual; }
+    unsigned short getTracking() const { return _num_tracking; }
+    float getDilution() const { return _dilution; }
+    float getAboveSea() const { return _above_sea; }
 private:
     short _time[3];
     float _lat, _lon;
-    unsigned short _qual;
-    unsigned short _num_tracking;
+    unsigned short _qual, _num_tracking;
     float _dilution, _above_sea;
 };
 

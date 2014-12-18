@@ -17,8 +17,8 @@ NmeaBase::NmeaBase(string raw) {
     _raw = raw;
     char type[10];
     
-    if (!isMsgValid(raw)) {
-        throw std::out_of_range("Invalid NMEA message: '" + raw + "'");
+    if (!isMsgValid(_raw)) {
+        throw std::out_of_range("Invalid NMEA message: '" + _raw + "'");
     }
     sscanf(raw.c_str(), "$%[^,],", type);
     
@@ -37,12 +37,8 @@ NmeaGga::NmeaGga(string raw): NmeaBase(raw) {
     float lat_deg, lon_deg;
     char lat_dir, lon_dir;
     
-    sscanf(raw.c_str(), "%2hu%2hu%2hu,%f,%c,%f,%c,%hu,%hu,%f,%f", 
+    sscanf(_raw.c_str(), "$GPGGA,%2hu%2hu%2hu,%f,%c,%f,%c,%hu,%hu,%f,%f", 
            &_time[0], &_time[1], &_time[2], &lat_deg, &lat_dir, &lon_deg, &lon_dir, &_qual, &_num_tracking, &_dilution, &_above_sea);
-    
-//    _time[0] = time_str / 10000;
-//    _time[1] = (time_str % 10000) / 100;
-//    _time[2] = (time_str % 100);
     
     _lat = degToDec(lat_deg, lat_dir);
     _lon = degToDec(lon_deg, lon_dir);
