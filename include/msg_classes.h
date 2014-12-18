@@ -8,23 +8,19 @@
 #ifndef MSG_CLASSES_H
 #define	MSG_CLASSES_H
 
-#include <cstdio>
-#include <iostream>
-#include <string>
-
-#include "convertions.h"
-
 using namespace std;
+
+#include <string>
 
 class NmeaBase {
 public:
-    NmeaBase(string raw, float epoch);
+    NmeaBase(string raw);
     NmeaBase(const NmeaBase& orig);
     virtual ~NmeaBase() {}
     
     // Getters
     string getType() const { return _type; }
-    string getRaw() const { return _raw; }
+    string getRaw() { return _raw; }
     float getEpoch() const { return _epoch; }
     
     // Setters

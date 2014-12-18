@@ -5,14 +5,15 @@
  * Created on December 17, 2014, 11:26 AM
  */
 
-#ifndef CONVERTIONS_H
-#define	CONVERTIONS_H
+#ifndef CONVERSIONS_H
+#define	CONVERSIONS_H
 
 #include <stdexcept>
 #include <string>
 
 float degToDec(float degree, char dir);
-short calcChecksum(std::string str);
+char calcChecksum(std::string str);
+bool isMsgValid(std::string msg);
 
-#endif	/* CONVERTIONS_H */
+#endif	/* CONVERSIONS_H */
 

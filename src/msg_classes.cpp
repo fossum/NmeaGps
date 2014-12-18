@@ -7,14 +7,23 @@
 
 #include "msg_classes.h"
 
-NmeaBase::NmeaBase(string raw, float epoch = 0) {
+#include <cstdio>
+#include <stdexcept>
+#include <iostream>
+
+#include "conversions.h"
+
+NmeaBase::NmeaBase(string raw) {
     _raw = raw;
-    char t[10];
+    char type[10];
     
-    sscanf(raw.c_str(), "$%s,", t);
+    if (!isMsgValid(raw)) {
+        throw std::out_of_range("Invalid NMEA message: '" + raw + "'");
+    }
+    sscanf(raw.c_str(), "$%[^,],", type);
     
-    _type = t;
-    _epoch = epoch;
+    _type = type;
+    _epoch = 0;
 }
 
 NmeaBase::NmeaBase(const NmeaBase& orig) {
@@ -23,18 +32,13 @@ NmeaBase::NmeaBase(const NmeaBase& orig) {
     _epoch = orig._epoch;
 }
 
-NmeaGga::NmeaGga(string raw) : NmeaBase(raw) {
+NmeaGga::NmeaGga(string raw): NmeaBase(raw) {
 //    long time_str;
     float lat_deg, lon_deg;
     char lat_dir, lon_dir;
     
-    try {
-        sscanf(raw.c_str(), "%2hu%2hu%2hu,%f,%c,%f,%c,%hu,%hu,%f,%f", 
-               &_time[0], &_time[1], &_time[2], &lat_deg, &lat_dir, &lon_deg, &lon_dir, &_qual, &_num_tracking, &_dilution, &_above_sea);
-    } catch(...) {
-        cout << "Invalid GGA string: " << raw << endl;
-    }
-    
+    sscanf(raw.c_str(), "%2hu%2hu%2hu,%f,%c,%f,%c,%hu,%hu,%f,%f", 
+           &_time[0], &_time[1], &_time[2], &lat_deg, &lat_dir, &lon_deg, &lon_dir, &_qual, &_num_tracking, &_dilution, &_above_sea);
     
 //    _time[0] = time_str / 10000;
 //    _time[1] = (time_str % 10000) / 100;

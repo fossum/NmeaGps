@@ -4,8 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>convertions.h</itemPath>
-      <itemPath>msg_classes.h</itemPath>
+      <itemPath>include/conversions.h</itemPath>
+      <itemPath>include/msg_classes.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -14,13 +14,29 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>convertions.cpp</itemPath>
-      <itemPath>msg_classes.cpp</itemPath>
+      <itemPath>src/conversions.cpp</itemPath>
+      <itemPath>src/msg_classes.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f3"
+                     displayName="Conversions Unit Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>src/tests/conversionsrunner.cpp</itemPath>
+        <itemPath>src/tests/conversionstestclass.cpp</itemPath>
+        <itemPath>src/tests/conversionstestclass.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2"
+                     displayName="Messages Testing"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>src/tests/msg_test.cpp</itemPath>
+        <itemPath>src/tests/msgtestclass.cpp</itemPath>
+        <itemPath>src/tests/msgtestclass.h</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -29,6 +45,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>src</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="2">
@@ -38,14 +57,74 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
+        </ccTool>
       </compileType>
-      <item path="convertions.cpp" ex="false" tool="1" flavor2="0">
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="convertions.h" ex="false" tool="3" flavor2="0">
+      <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="msg_classes.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="msg_classes.h" ex="false" tool="3" flavor2="0">
+      <item path="src/msg_classes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionsrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionstestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionstestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tests/msg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/msgtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/msgtestclass.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -68,13 +147,68 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
-      <item path="convertions.cpp" ex="false" tool="1" flavor2="0">
+      <folder path="TestFiles/f1">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <cTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </cTool>
+        <ccTool>
+          <commandLine>`cppunit-config --cflags`</commandLine>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="convertions.h" ex="false" tool="3" flavor2="0">
+      <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="msg_classes.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="msg_classes.h" ex="false" tool="3" flavor2="0">
+      <item path="src/msg_classes.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionsrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionstestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/conversionstestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tests/msg_test.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/msgtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tests/msgtestclass.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
