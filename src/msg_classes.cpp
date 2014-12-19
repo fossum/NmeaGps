@@ -73,16 +73,45 @@ NmeaGsa::NmeaGsa(string raw): NmeaBase(raw) {
     _vert_dil = strtof(tok, &tok);
 }
 
-NmeaGsv::NmeaGsv(string raw): NmeaBase(raw) {
-    
-}
-
 NmeaVtg::NmeaVtg(string raw): NmeaBase(raw) {
     
 }
 
 NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
+    char active = '\0', lat_dir, lon_dir, mag_dir;
+    float lat, lon;
     
+    sscanf(_raw, "$GPRMC,%2hu%2hu%2hu,%c,%f,%c,%f,%c,%f,%f,%2hu%2hu%2hu,%f, %c", &_time[0], &_time[1], &_time[2], &active, &lat, &lat_dir, &lon, &lon_dir, &_speed, &_angle, &_date[0], &_date[1], &_date[2], &_mag_variation, &mag_dir);
+    
+    // Calc active message
+    switch(active) {
+        case 'A':
+            _active = true;
+            break;
+        case 'V':
+            _active = false;
+            break;
+        default:
+            throw out_of_range("Message active char out of range: '"+active+"'");
+    }
+    
+    // Calc epoch
+    _epoch = dateTimeToEpoch(_time, _date);
+    
+    // Calc lat/lon
+    _lat = degToDec(lat, lat_dir);
+    _lon = degToDec(lon, lon_dir);
+    
+    // Calc mag. var.
+    switch(mag_dir) {
+        case 'E':
+            break;
+        case 'W':
+            _mag_variation *= -1;
+            break;
+        default:
+            throw out_of_range("Magnetic variation out of range: '"+mag_dir+"'");
+    }
 }
 
 /*

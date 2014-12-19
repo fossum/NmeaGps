@@ -48,3 +48,7 @@ bool isMsgValid(std::string msg) {
     
     return (calcChecksum(data) == exp_sum);
 }
+
+int dateTimeToEpoch(unsigned short date[], unsigned short time[]) {
+    
+}

@@ -14,6 +14,7 @@
 float degToDec(float degree, char dir);
 char calcChecksum(std::string str);
 bool isMsgValid(std::string msg);
+int dateTimeToEpoch(unsigned short date[], unsigned short time[]);
 
 #endif	/* CONVERSIONS_H */
 

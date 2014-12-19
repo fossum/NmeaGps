@@ -70,15 +70,6 @@ private:
     float _dilution, _horz_dil, _vert_dil;
 };
 
-class NmeaGsv: public NmeaBase {
-public:
-    NmeaGsv(string raw);
-    virtual ~NmeaGsv() {}
-    
-    // Getters
-private:
-};
-
 class NmeaVtg: public NmeaBase {
 public:
     NmeaVtg(string raw);
@@ -94,7 +85,18 @@ public:
     virtual ~NmeaRmc() {}
     
     // Getters
+    bool getState() const { return(_active); }
+    float getLatitude() const { return(_lat); }
+    float getLongitude() const { return(_lon); }
+    float getSpeed() const { return(_speed); }
+    float getAngle() const { return(_angle); }
+    float getMagneticVariation() const { return(_mag_variation); }
 private:
+    unsigned short _time[3], _date[3];
+    bool _active;
+    float _lat, _lon;
+    float _speed, _angle;
+    float _mag_variation;
 };
 
 #endif	/* MSG_CLASSES_H */
