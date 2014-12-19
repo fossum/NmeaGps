@@ -15,8 +15,12 @@ class msgtestclass : public CPPUNIT_NS::TestFixture {
 
     CPPUNIT_TEST(baseGoodConstructor);
     CPPUNIT_TEST(baseBadConstructor);
+    
     CPPUNIT_TEST(ggaGoodConstructor);
     CPPUNIT_TEST(ggaBadConstructor);
+    
+    CPPUNIT_TEST(gsaGoodConstructor);
+    CPPUNIT_TEST(gsaBadConstructor);
 
     CPPUNIT_TEST_SUITE_END();
 
@@ -32,6 +36,9 @@ private:
     
     void ggaGoodConstructor();
     void ggaBadConstructor();
+    
+    void gsaGoodConstructor();
+    void gsaBadConstructor();
 };
 
 #endif	/* MSGTESTCLASS_H */

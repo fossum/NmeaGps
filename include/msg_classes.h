@@ -20,7 +20,7 @@ public:
     
     // Getters
     string getType() const { return _type; }
-    string getRaw() { return _raw; }
+    string getRaw() const { return _raw; }
     float getEpoch() const { return _epoch; }
     
     // Setters
@@ -50,6 +50,51 @@ private:
     float _lat, _lon;
     unsigned short _qual, _num_tracking;
     float _dilution, _above_sea;
+};
+
+class NmeaGsa: public NmeaBase {
+public:
+    NmeaGsa(string raw);
+    virtual ~NmeaGsa() {}
+    
+    // Getters
+    char getSelectionMode() const { return _selection; };
+    unsigned short getPrn(unsigned int index) { return _prn[index-1]; }
+    unsigned short getPrnCount() { return _count; }
+    float getDilution() const { return _dilution; }
+    float getHorzDilution() const { return _horz_dil; }
+    float getVertDilution() const { return _vert_dil; }
+private:
+    char _selection;
+    unsigned short _prn[12], _fix, _count;
+    float _dilution, _horz_dil, _vert_dil;
+};
+
+class NmeaGsv: public NmeaBase {
+public:
+    NmeaGsv(string raw);
+    virtual ~NmeaGsv() {}
+    
+    // Getters
+private:
+};
+
+class NmeaVtg: public NmeaBase {
+public:
+    NmeaVtg(string raw);
+    virtual ~NmeaVtg() {}
+    
+    // Getters
+private:
+};
+
+class NmeaRmc: public NmeaBase {
+public:
+    NmeaRmc(string raw);
+    virtual ~NmeaRmc() {}
+    
+    // Getters
+private:
 };
 
 #endif	/* MSG_CLASSES_H */

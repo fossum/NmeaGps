@@ -94,3 +94,47 @@ void msgtestclass::ggaBadConstructor() {
     }
     CPPUNIT_ASSERT(asserted);
 }
+
+void msgtestclass::gsaGoodConstructor() {
+    string good_msg = "$GPGSA,A,3,04,05,,09,12,,,24,,,,,2.5,1.3,2.1*39";
+    string type = "GPGSA";
+    NmeaGsa nmeaGsa(good_msg);
+    
+    // Inheritance
+    CPPUNIT_ASSERT_EQUAL(type, nmeaGsa.getType());
+    CPPUNIT_ASSERT_EQUAL(good_msg, nmeaGsa.getRaw());
+    CPPUNIT_ASSERT_EQUAL((float)0, nmeaGsa.getEpoch());
+    
+    // GSA message
+    CPPUNIT_ASSERT_EQUAL('A', nmeaGsa.getSelectionMode());
+    CPPUNIT_ASSERT_EQUAL((unsigned short)4, nmeaGsa.getPrn(1));
+    CPPUNIT_ASSERT_EQUAL((unsigned short)24, nmeaGsa.getPrn(5));
+    CPPUNIT_ASSERT_EQUAL((unsigned short)0, nmeaGsa.getPrn(6));
+    CPPUNIT_ASSERT_EQUAL((unsigned short)0, nmeaGsa.getPrn(12));
+    CPPUNIT_ASSERT_EQUAL((unsigned short)5, nmeaGsa.getPrnCount());
+    CPPUNIT_ASSERT_EQUAL((float)2.5, nmeaGsa.getDilution());
+    CPPUNIT_ASSERT_EQUAL((float)1.3, nmeaGsa.getHorzDilution());
+    CPPUNIT_ASSERT_EQUAL((float)2.1, nmeaGsa.getVertDilution());
+}
+
+void msgtestclass::gsaBadConstructor() {
+    string bad_msg = "$GPGSA,A,3,04,05,,09,12,,,24,,,,,2.5,1.3,2.1*38";
+    
+    // Bad chk-sum case
+    bool asserted = false;
+    try {
+        NmeaGsa nmeaGsa(bad_msg);
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+    
+    // Empty string case
+    asserted = false;
+    try {
+        NmeaGsa nmeaGsa("");
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+}

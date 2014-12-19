@@ -10,6 +10,8 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>good_gps.log</itemPath>
+      <itemPath>no_track_gps.log</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -57,17 +59,13 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <ccTool>
-          <incDir>
-            <pElem>include</pElem>
-          </incDir>
-        </ccTool>
-      </compileType>
-      <folder path="TestFiles/f1">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
         </cTool>
         <ccTool>
+          <incDir>
+            <pElem>include</pElem>
+          </incDir>
           <commandLine>`cppunit-config --cflags`</commandLine>
         </ccTool>
         <linkerTool>
@@ -77,7 +75,7 @@
             <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
-      </folder>
+      </compileType>
       <folder path="TestFiles/f2">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -106,9 +104,13 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="good_gps.log" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="no_track_gps.log" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -136,9 +138,11 @@
       <compileType>
         <cTool>
           <developmentMode>5</developmentMode>
+          <commandLine>`cppunit-config --cflags`</commandLine>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <commandLine>`cppunit-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -146,14 +150,6 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
-      </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </cTool>
-        <ccTool>
-          <commandLine>`cppunit-config --cflags`</commandLine>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerLibItems>
@@ -161,7 +157,7 @@
             <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
-      </folder>
+      </compileType>
       <folder path="TestFiles/f2">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -190,9 +186,13 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="good_gps.log" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="no_track_gps.log" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
       </item>
