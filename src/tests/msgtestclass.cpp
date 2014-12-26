@@ -138,3 +138,81 @@ void msgtestclass::gsaBadConstructor() {
     }
     CPPUNIT_ASSERT(asserted);
 }
+    
+void msgtestclass::rmcGoodConstructor() {
+    string msg1 = "$GPRMC,081836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
+    string msg2 = "$GPRMC,225446,A,4916.45,N,12311.12,W,000.5,054.7,191194,020.3,E*68";
+
+    NmeaRmc nmea1(msg1);
+    CPPUNIT_ASSERT_EQUAL(true, nmea1.getState());
+    CPPUNIT_ASSERT_EQUAL((float)-37.860833, nmea1.getLatitude());
+    CPPUNIT_ASSERT_EQUAL((float)145.122666, nmea1.getLongitude());
+    CPPUNIT_ASSERT_EQUAL((float)0, nmea1.getSpeed());
+    CPPUNIT_ASSERT_EQUAL((float)360.0, nmea1.getAngle());
+    CPPUNIT_ASSERT_EQUAL((float)11.3, nmea1.getMagneticVariation());
+    CPPUNIT_ASSERT_EQUAL((float)905674716, nmea1.getEpoch());
+
+    NmeaRmc nmea2(msg1);
+    CPPUNIT_ASSERT_EQUAL(true, nmea2.getState());
+    CPPUNIT_ASSERT_EQUAL((float)49.274166, nmea2.getLatitude());
+    CPPUNIT_ASSERT_EQUAL((float)-123.185333, nmea2.getLongitude());
+    CPPUNIT_ASSERT_EQUAL((float)0.5, nmea2.getSpeed());
+    CPPUNIT_ASSERT_EQUAL((float)54.7, nmea2.getAngle());
+    CPPUNIT_ASSERT_EQUAL((float)20.3, nmea2.getMagneticVariation());
+    CPPUNIT_ASSERT_EQUAL((float)785285686, nmea2.getEpoch());
+}
+
+void msgtestclass::rmcBadConstructor() {
+    string bad_msg = "$GPRMC,01836,A,3751.65,S,14507.36,E,000.0,360.0,130998,011.3,E*62";
+    
+    // Bad chk-sum case
+    bool asserted = false;
+    try {
+        NmeaRmc nmea1(bad_msg);
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+    
+    // Empty string case
+    asserted = false;
+    try {
+        NmeaRmc nmea2("");
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+}
+    
+void msgtestclass::vtgGoodConstructor() {
+    string msg1 = "$GPVTG,360.0,T,348.7,M,000.0,N,000.0,K*43";
+
+    NmeaVtg nmea1(msg1);
+    CPPUNIT_ASSERT_EQUAL((float)360, nmea1.getTrueAng());
+    CPPUNIT_ASSERT_EQUAL((float)348.7, nmea1.getMagneticAng());
+    CPPUNIT_ASSERT_EQUAL((float)0, nmea1.getKnots());
+    CPPUNIT_ASSERT_EQUAL((float)0, nmea1.getKmph());
+}
+
+void msgtestclass::vtgBadConstructor() {
+    string bad_msg = "$GPVTG,360.0,T,348.7,M,000.0,N,000 0,K*43";
+    
+    // Bad chk-sum case
+    bool asserted = false;
+    try {
+        NmeaVtg nmea1(bad_msg);
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+    
+    // Empty string case
+    asserted = false;
+    try {
+        NmeaVtg nmea2("");
+    } catch (...) {
+        asserted = true;
+    }
+    CPPUNIT_ASSERT(asserted);
+}
+

@@ -49,19 +49,19 @@ NmeaGga::NmeaGga(string raw): NmeaBase(raw) {
 }
 
 NmeaGsa::NmeaGsa(string raw): NmeaBase(raw) {
-    char prns[80], *tok;
+    char prns[80], *tok, del[2] = {',', '\0'};
     int index = 0, itr = 0;
     
     sscanf(_raw.c_str(), "$GPGSA,%c,%hu,%[^*]*", &_selection, &_fix, prns);
     
-    tok = xstrtok(prns, ",");
+    tok = xstrtok(prns, del);
     while (tok != NULL && itr < 12) {
         unsigned int tmp = atoi(tok);
         if (tmp > 0) {
             _prn[index++] = tmp;
         }
         itr++;
-        tok = xstrtok(NULL, ",");
+        tok = xstrtok(NULL, del);
     }
     _count = index;
     while(index < 12) {
@@ -69,19 +69,23 @@ NmeaGsa::NmeaGsa(string raw): NmeaBase(raw) {
     }
     
     _dilution = strtof(tok, &tok);
-    _horz_dil = strtof(tok+1, &tok);    // Plus one to so around '\0' from strtok
-    _vert_dil = strtof(tok, &tok);
-}
-
-NmeaVtg::NmeaVtg(string raw): NmeaBase(raw) {
-    
+    _horz_dil = strtof(tok+1, &tok);    // Plus one to move past delim
+    _vert_dil = strtof(tok+1, &tok);
 }
 
 NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
     char active = '\0', lat_dir, lon_dir, mag_dir;
     float lat, lon;
     
-    sscanf(_raw, "$GPRMC,%2hu%2hu%2hu,%c,%f,%c,%f,%c,%f,%f,%2hu%2hu%2hu,%f, %c", &_time[0], &_time[1], &_time[2], &active, &lat, &lat_dir, &lon, &lon_dir, &_speed, &_angle, &_date[0], &_date[1], &_date[2], &_mag_variation, &mag_dir);
+    sscanf(_raw.c_str(),
+           "$GPRMC,%2hu%2hu%2hu,%c,%f,%c,%f,%c,%f,%f,%2hu%2hu%2hu,%f,%c",
+           &_time[0], &_time[1], &_time[2],
+           &active,
+           &lat, &lat_dir,
+           &lon, &lon_dir,
+           &_speed, &_angle,
+           &_date[0], &_date[1], &_date[2],
+           &_mag_variation, &mag_dir);
     
     // Calc active message
     switch(active) {
@@ -92,11 +96,13 @@ NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
             _active = false;
             break;
         default:
-            throw out_of_range("Message active char out of range: '"+active+"'");
+            char str[100];
+            sprintf(str, "Message active char out of range: '%c'", active);
+            throw out_of_range(str);
     }
     
     // Calc epoch
-    _epoch = dateTimeToEpoch(_time, _date);
+    _epoch = dateTimeToEpoch(_date, _time);
     
     // Calc lat/lon
     _lat = degToDec(lat, lat_dir);
@@ -110,7 +116,17 @@ NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
             _mag_variation *= -1;
             break;
         default:
-            throw out_of_range("Magnetic variation out of range: '"+mag_dir+"'");
+            char str[100];
+            sprintf(str, "Magnetic variation out of range: '%c'", mag_dir);
+            throw out_of_range(str);
+    }
+}
+
+NmeaVtg::NmeaVtg(string raw): NmeaBase(raw) {
+    if ( 4 != sscanf(_raw.c_str(),
+                     "$GPVTG,%f,T,%f,M,%f,N,%f,K",
+                     &_true_track, &_mag_track, &_knots, &_kmph)) {
+        throw "Could not parse VTG message";
     }
 }
 

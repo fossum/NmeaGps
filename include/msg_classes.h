@@ -22,11 +22,6 @@ public:
     string getType() const { return _type; }
     string getRaw() const { return _raw; }
     float getEpoch() const { return _epoch; }
-    
-    // Setters
-//    void setType(std::string t) const { _type = t; }
-//    void setRaw(std::string r) const { _raw = r; }
-//    void setEpoch(float e) const { _epoch = e; }
 protected:
     string _raw;
     string _type;
@@ -70,15 +65,6 @@ private:
     float _dilution, _horz_dil, _vert_dil;
 };
 
-class NmeaVtg: public NmeaBase {
-public:
-    NmeaVtg(string raw);
-    virtual ~NmeaVtg() {}
-    
-    // Getters
-private:
-};
-
 class NmeaRmc: public NmeaBase {
 public:
     NmeaRmc(string raw);
@@ -97,6 +83,21 @@ private:
     float _lat, _lon;
     float _speed, _angle;
     float _mag_variation;
+};
+
+class NmeaVtg: public NmeaBase {
+public:
+    NmeaVtg(string raw);
+    virtual ~NmeaVtg() {}
+    
+    // Getters
+    float getTrueAng() const { return _true_track; }
+    float getMagneticAng() const { return _mag_track; }
+    float getKnots() const { return _knots; }
+    float getKmph() const { return _kmph; }
+private:
+    float _true_track, _mag_track;
+    float _knots, _kmph;
 };
 
 #endif	/* MSG_CLASSES_H */

@@ -8,6 +8,7 @@
 #include "conversions.h"
 
 #include <cstdio>
+#include <time.h>
 
 float degToDec(float degree, char dir) {
     int deg = (int)degree / 100;
@@ -50,5 +51,19 @@ bool isMsgValid(std::string msg) {
 }
 
 int dateTimeToEpoch(unsigned short date[], unsigned short time[]) {
+    struct tm t = {0};
     
+    t.tm_mday = date[0];
+    t.tm_mon = date[1] - 1;
+    if (date[2] > 70) {
+        t.tm_year = date[2];
+    } else {     // This is year-1900, so 112 = 2012
+        t.tm_year = 100 + date[2];
+    }
+    t.tm_hour = time[0];
+    t.tm_min = time[1];
+    t.tm_sec = time[2];
+    
+//    time_t timeSinceEpoch = mktime(&t);
+    return (float)timegm(&t);
 }

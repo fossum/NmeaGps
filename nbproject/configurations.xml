@@ -10,6 +10,7 @@
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>/home/ericfoss/Documents/NmeaGps/README.md</itemPath>
       <itemPath>good_gps.log</itemPath>
       <itemPath>no_track_gps.log</itemPath>
     </logicalFolder>
@@ -76,6 +77,11 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="/home/ericfoss/Documents/NmeaGps/README.md"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <folder path="TestFiles/f2">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
@@ -158,6 +164,11 @@
           </linkerLibItems>
         </linkerTool>
       </compileType>
+      <item path="/home/ericfoss/Documents/NmeaGps/README.md"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <folder path="TestFiles/f2">
         <cTool>
           <commandLine>`cppunit-config --cflags`</commandLine>
