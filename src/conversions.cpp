@@ -7,6 +7,7 @@
 
 #include "conversions.h"
 
+#include <cmath>
 #include <cstdio>
 #include <time.h>
 
@@ -50,7 +51,7 @@ bool isMsgValid(std::string msg) {
     return (calcChecksum(data) == exp_sum);
 }
 
-int dateTimeToEpoch(unsigned short date[], unsigned short time[]) {
+int dateTimeToEpoch(unsigned short date[], float time[]) {
     struct tm t = {0};
     
     t.tm_mday = date[0];
@@ -60,10 +61,14 @@ int dateTimeToEpoch(unsigned short date[], unsigned short time[]) {
     } else {     // This is year-1900, so 112 = 2012
         t.tm_year = 100 + date[2];
     }
-    t.tm_hour = time[0];
-    t.tm_min = time[1];
-    t.tm_sec = time[2];
+    t.tm_hour = (int)time[0];
+    t.tm_min = (int)time[1];
     
-//    time_t timeSinceEpoch = mktime(&t);
-    return (float)timegm(&t);
+    double seconds;
+    float fractal = modf(time[2], &seconds);
+    t.tm_sec = (int)seconds;
+    float epoch = (float)timegm(&t);
+    epoch += fractal;
+    
+    return epoch;
 }

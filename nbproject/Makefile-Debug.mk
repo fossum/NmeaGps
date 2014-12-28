@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/_ext/1494353551/GpsDevice.o \
 	${OBJECTDIR}/src/conversions.o \
 	${OBJECTDIR}/src/msg_classes.o
 
@@ -50,8 +51,8 @@ TESTFILES= \
 CFLAGS=`cppunit-config --cflags` 
 
 # CC Compiler Flags
-CCFLAGS=`cppunit-config --cflags` 
-CXXFLAGS=`cppunit-config --cflags` 
+CCFLAGS=`cppunit-config --cflags` -pthread 
+CXXFLAGS=`cppunit-config --cflags` -pthread 
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -60,7 +61,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=`cppunit-config --libs` `cppunit-config --libs`  
+LDLIBSOPTIONS=-L/usr/include `cppunit-config --libs` `cppunit-config --libs` -pthread  
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -69,6 +70,11 @@ LDLIBSOPTIONS=`cppunit-config --libs` `cppunit-config --libs`
 ${TESTDIR}/TestFiles/f1: ${OBJECTFILES}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc} -o ${TESTDIR}/TestFiles/f1 ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
+
+${OBJECTDIR}/_ext/1494353551/GpsDevice.o: /home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1494353551
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1494353551/GpsDevice.o /home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp
 
 ${OBJECTDIR}/src/conversions.o: src/conversions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -117,6 +123,19 @@ ${TESTDIR}/src/tests/msgtestclass.o: src/tests/msgtestclass.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude `cppunit-config --cflags` -MMD -MP -MF "$@.d" -o ${TESTDIR}/src/tests/msgtestclass.o src/tests/msgtestclass.cpp
 
+
+${OBJECTDIR}/_ext/1494353551/GpsDevice_nomain.o: ${OBJECTDIR}/_ext/1494353551/GpsDevice.o /home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/1494353551
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/1494353551/GpsDevice.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -g -Iinclude -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1494353551/GpsDevice_nomain.o /home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/1494353551/GpsDevice.o ${OBJECTDIR}/_ext/1494353551/GpsDevice_nomain.o;\
+	fi
 
 ${OBJECTDIR}/src/conversions_nomain.o: ${OBJECTDIR}/src/conversions.o src/conversions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

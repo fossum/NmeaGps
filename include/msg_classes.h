@@ -14,6 +14,7 @@ using namespace std;
 
 class NmeaBase {
 public:
+    NmeaBase();
     NmeaBase(string raw);
     NmeaBase(const NmeaBase& orig);
     virtual ~NmeaBase() {}
@@ -30,7 +31,9 @@ protected:
 
 class NmeaGga: public NmeaBase {
 public:
+    NmeaGga();
     NmeaGga(string raw);
+//    NmeaGga(const NmeaGga&);
     virtual ~NmeaGga() {}
     
     // Getters
@@ -41,7 +44,7 @@ public:
     float getDilution() const { return _dilution; }
     float getAboveSea() const { return _above_sea; }
 private:
-    short _time[3];
+    float _time[3];
     float _lat, _lon;
     unsigned short _qual, _num_tracking;
     float _dilution, _above_sea;
@@ -49,6 +52,7 @@ private:
 
 class NmeaGsa: public NmeaBase {
 public:
+    NmeaGsa();
     NmeaGsa(string raw);
     virtual ~NmeaGsa() {}
     
@@ -67,6 +71,7 @@ private:
 
 class NmeaRmc: public NmeaBase {
 public:
+    NmeaRmc();
     NmeaRmc(string raw);
     virtual ~NmeaRmc() {}
     
@@ -78,7 +83,8 @@ public:
     float getAngle() const { return(_angle); }
     float getMagneticVariation() const { return(_mag_variation); }
 private:
-    unsigned short _time[3], _date[3];
+    float _time[3];
+    unsigned short _date[3];
     bool _active;
     float _lat, _lon;
     float _speed, _angle;
@@ -87,6 +93,7 @@ private:
 
 class NmeaVtg: public NmeaBase {
 public:
+    NmeaVtg();
     NmeaVtg(string raw);
     virtual ~NmeaVtg() {}
     

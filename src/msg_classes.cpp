@@ -7,6 +7,7 @@
 
 #include "msg_classes.h"
 
+#include <cassert>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -17,12 +18,20 @@
 
 char *xstrtok(char *line, char *delims);
 
+NmeaBase::NmeaBase() {
+    _raw = "";
+    _type = "";
+    _epoch = 0;
+}
+
 NmeaBase::NmeaBase(string raw) {
     _raw = raw;
     char type[10];
     
     if (!isMsgValid(_raw)) {
-        throw std::out_of_range("Invalid NMEA message: '" + _raw + "'");
+        cerr << "Invalid NMEA message: '" << _raw << "'" << endl;
+        assert(0);
+        throw std::out_of_range("invalid NMEA");
     }
     sscanf(raw.c_str(), "$%[^,],", type);
     
@@ -36,16 +45,50 @@ NmeaBase::NmeaBase(const NmeaBase& orig) {
     _epoch = orig._epoch;
 }
 
+NmeaGga::NmeaGga(): NmeaBase() {
+    _time[0] = 0;
+    _time[1] = 0;
+    _time[2] = 0;
+    _lat = 0;
+    _lon = 0;
+    _qual = 0;
+    _num_tracking = 0;
+    _dilution = 0;
+    _above_sea = 0;
+}
+
 NmeaGga::NmeaGga(string raw): NmeaBase(raw) {
 //    long time_str;
     float lat_deg, lon_deg;
     char lat_dir, lon_dir;
     
-    sscanf(_raw.c_str(), "$GPGGA,%2hu%2hu%2hu,%f,%c,%f,%c,%hu,%hu,%f,%f", 
-           &_time[0], &_time[1], &_time[2], &lat_deg, &lat_dir, &lon_deg, &lon_dir, &_qual, &_num_tracking, &_dilution, &_above_sea);
+    if (11 != sscanf(_raw.c_str(),
+                     "$GPGGA,%2f%2f%f,%f,%c,%f,%c,%hu,%hu,%f,%f", 
+                     &_time[0], &_time[1], &_time[2],
+                     &lat_deg, &lat_dir, &lon_deg, &lon_dir, 
+                     &_qual, &_num_tracking, &_dilution, &_above_sea)) {
+        cerr << "Could not parse: '" << _raw << "'" << endl;
+        assert(0);
+        throw out_of_range("Could not parse");
+    }
     
     _lat = degToDec(lat_deg, lat_dir);
     _lon = degToDec(lon_deg, lon_dir);
+}
+
+NmeaGsa::NmeaGsa() {
+    int index = 0;
+    
+    _count = index;
+    while(index < 12) {
+        _prn[index++] = 0;
+    }
+    
+    _selection = '\0';
+    _fix = 0;
+    _dilution = 0;
+    _horz_dil = 0;
+    _vert_dil = 0;
 }
 
 NmeaGsa::NmeaGsa(string raw): NmeaBase(raw) {
@@ -73,19 +116,38 @@ NmeaGsa::NmeaGsa(string raw): NmeaBase(raw) {
     _vert_dil = strtof(tok+1, &tok);
 }
 
+NmeaRmc::NmeaRmc() {
+    _time[0] = 0;
+    _time[1] = 0;
+    _time[2] = 0;
+    _active = false;
+    _speed = 0;
+    _angle = 0;
+    _date[0] = 0;
+    _date[1] = 0;
+    _date[2] = 0;
+    _mag_variation = 0;
+    _lat = 0;
+    _lon = 0;
+}
+
 NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
     char active = '\0', lat_dir, lon_dir, mag_dir;
     float lat, lon;
     
-    sscanf(_raw.c_str(),
-           "$GPRMC,%2hu%2hu%2hu,%c,%f,%c,%f,%c,%f,%f,%2hu%2hu%2hu,%f,%c",
-           &_time[0], &_time[1], &_time[2],
-           &active,
-           &lat, &lat_dir,
-           &lon, &lon_dir,
-           &_speed, &_angle,
-           &_date[0], &_date[1], &_date[2],
-           &_mag_variation, &mag_dir);
+    if (13 > sscanf(_raw.c_str(),
+                    "$GPRMC,%2f%2f%f,%c,%f,%c,%f,%c,%f,%f,%2hu%2hu%2hu,%f,%c",
+                    &_time[0], &_time[1], &_time[2],
+                    &active,
+                    &lat, &lat_dir,
+                    &lon, &lon_dir,
+                    &_speed, &_angle,
+                    &_date[0], &_date[1], &_date[2],
+                    &_mag_variation, &mag_dir)) {
+        cerr << "Could not parse: '" << _raw << "'" << endl;
+        assert(0);
+        throw out_of_range("Could not parse");
+    }
     
     // Calc active message
     switch(active) {
@@ -96,9 +158,9 @@ NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
             _active = false;
             break;
         default:
-            char str[100];
-            sprintf(str, "Message active char out of range: '%c'", active);
-            throw out_of_range(str);
+            cerr << "Message active char out of range: '" << active << "'" << endl;
+            assert(0);
+            throw out_of_range("invalid active state");
     }
     
     // Calc epoch
@@ -116,17 +178,58 @@ NmeaRmc::NmeaRmc(string raw): NmeaBase(raw) {
             _mag_variation *= -1;
             break;
         default:
-            char str[100];
-            sprintf(str, "Magnetic variation out of range: '%c'", mag_dir);
-            throw out_of_range(str);
+//            cerr << "Magnetic variation out of range: '" << mag_dir << "'" << endl;
+//            assert(0);
+//            throw out_of_range("invalid magnetic direction");
+            _mag_variation = 0;
     }
 }
 
+NmeaVtg::NmeaVtg() {
+    _true_track = _mag_track = 0;
+    _knots = _kmph = 0;
+}
+
 NmeaVtg::NmeaVtg(string raw): NmeaBase(raw) {
-    if ( 4 != sscanf(_raw.c_str(),
-                     "$GPVTG,%f,T,%f,M,%f,N,%f,K",
-                     &_true_track, &_mag_track, &_knots, &_kmph)) {
-        throw "Could not parse VTG message";
+//    if ( 4 != sscanf(_raw.c_str(),
+//                     "$GPVTG,%f,T,%f,M,%f,N,%f,K",
+//                     &_true_track, &_mag_track, &_knots, &_kmph)) {
+//        cerr << "Could not parse: '" << _raw << "'" << endl;
+//        assert(0);
+//        throw out_of_range("Could not parse VTG message");
+//    }
+    char message[255], *ptr;
+    int index = 0;
+    strncpy(message, _raw.c_str(), 255);
+    
+    ptr = xstrtok(message, ",");
+    while (ptr != NULL) {
+        switch (index++) {
+            case 0:
+            case 2:
+            case 4:
+            case 6:
+            case 8:
+            case 9:
+                break;
+            case 1:
+                _true_track = strtof(ptr, NULL);
+                break;
+            case 3:
+                _mag_track = strtof(ptr, NULL);
+                break;
+            case 5:
+                _knots = strtof(ptr, NULL);
+                break;
+            case 7:
+                _kmph = strtof(ptr, NULL);
+                break;
+            default:
+                cerr << "Unable to parse '" << _raw << "'" << endl;
+                assert(0);
+                break;
+        }
+        ptr = xstrtok(NULL, ",");
     }
 }
 

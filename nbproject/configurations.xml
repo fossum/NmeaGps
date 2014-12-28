@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>/home/ericfoss/Documents/NmeaGps/include/GpsDevice.h</itemPath>
       <itemPath>include/conversions.h</itemPath>
       <itemPath>include/msg_classes.h</itemPath>
     </logicalFolder>
@@ -17,6 +18,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp</itemPath>
       <itemPath>src/conversions.cpp</itemPath>
       <itemPath>src/msg_classes.cpp</itemPath>
     </logicalFolder>
@@ -67,19 +69,33 @@
           <incDir>
             <pElem>include</pElem>
           </incDir>
-          <commandLine>`cppunit-config --cflags`</commandLine>
+          <commandLine>`cppunit-config --cflags` -pthread</commandLine>
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerAddLib>
+            <pElem>/usr/include</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
             <linkerOptionItem>`cppunit-config --libs`</linkerOptionItem>
+            <linkerOptionItem>-pthread</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="/home/ericfoss/Documents/NmeaGps/README.md"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/GpsDevice.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <folder path="TestFiles/f2">
@@ -167,6 +183,16 @@
       <item path="/home/ericfoss/Documents/NmeaGps/README.md"
             ex="false"
             tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/GpsDevice.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp"
+            ex="false"
+            tool="1"
             flavor2="0">
       </item>
       <folder path="TestFiles/f2">
