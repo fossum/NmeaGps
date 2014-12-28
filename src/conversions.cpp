@@ -46,9 +46,12 @@ bool isMsgValid(std::string msg) {
     char data[100];
     unsigned short exp_sum;
     
-    sscanf(msg.c_str(), "$%100[^*]*%hx", data, &exp_sum);
+    if (2 == sscanf(msg.c_str(), "$%100[^*]*%hx", data, &exp_sum) &&
+        calcChecksum(data) == exp_sum) {
+        return true;
+    }
     
-    return (calcChecksum(data) == exp_sum);
+    return false;
 }
 
 int dateTimeToEpoch(unsigned short date[], float time[]) {

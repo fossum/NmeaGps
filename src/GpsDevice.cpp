@@ -39,8 +39,6 @@ void *read(void *arg) {
                 cout << "New Vtg KPH(" << vtg->getKmph() << ") angle(" << vtg->getTrueAng() << ")" << endl;
             } else if (base.getType().compare("GPGSV") == 0) {
                 cout << "Tossing GSV message" << endl;
-            } else if (line.length() == 0) {
-                // Nothing
             } else {
                 cerr << "Unknown message type: " << line << endl;
                 assert(0);
