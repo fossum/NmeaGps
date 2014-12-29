@@ -11,7 +11,10 @@
 #include <fstream>
 #include <pthread.h>
 
-#include "msg_classes.h"
+#include "messages/NmeaGga.h"
+#include "messages/NmeaGsa.h"
+#include "messages/NmeaRmc.h"
+#include "messages/NmeaVtg.h"
 
 class GpsDevice {
 public:
@@ -22,7 +25,7 @@ public:
     
     // Methods
     void run();
-    void stop();
+    int stop();
     std::string getLine();
     bool isRunning() const { return _running; }
     bool good() const { return _device.good(); }
@@ -39,7 +42,7 @@ public:
 private:
     std::string _path;
     pthread_t _reader;
-    ifstream _device;
+    std::ifstream _device;
     bool _running;
     
     NmeaGga _gga;

@@ -7,7 +7,10 @@
 
 #include "msgtestclass.h"
 
-#include "msg_classes.h"
+#include "messages/NmeaGga.h"
+#include "messages/NmeaGsa.h"
+#include "messages/NmeaRmc.h"
+#include "messages/NmeaVtg.h"
 
 #include <string>
 

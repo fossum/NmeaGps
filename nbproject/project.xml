@@ -11,6 +11,7 @@
             <make-dep-projects/>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>
+                <sourceRootElem>/home/ericfoss/Documents/NmeaGps/include/messages</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

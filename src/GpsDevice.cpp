@@ -10,8 +10,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "conversions.h"
-#include "msg_classes.h"
+#include "utilities.h"
 
 void *read(void *arg) {
     GpsDevice *dev = (GpsDevice *)arg;
@@ -24,25 +23,25 @@ void *read(void *arg) {
             if (base.getType().compare("GPGGA") == 0) {
                 dev->setGga(line);
                 NmeaGga *gga = dev->getGga();
-                cout << "New GGA lat(" << gga->getLatitude() << ") lon(" << gga->getLongitude() << ")" << endl;
+                std::cout << "New GGA lat(" << gga->getLatitude() << ") lon(" << gga->getLongitude() << ")" << std::endl;
             } else if (base.getType().compare("GPGSA") == 0) {
                 dev->setGsa(line);
                 NmeaGsa *gsa = dev->getGsa();
-                cout << "New GSA dilution(" << gsa->getDilution() << ")" << endl;
+                std::cout << "New GSA dilution(" << gsa->getDilution() << ")" << std::endl;
             } else if (base.getType().compare("GPRMC") == 0) {
                 dev->setRmc(line);
                 NmeaRmc *rmc = dev->getRmc();
-                cout << "New RMC lat(" << rmc->getLatitude() << ") lon(" << rmc->getLongitude() << ")" << endl;
+                std::cout << "New RMC lat(" << rmc->getLatitude() << ") lon(" << rmc->getLongitude() << ")" << std::endl;
             } else if (base.getType().compare("GPVTG") == 0) {
                 dev->setVtg(line);
                 NmeaVtg *vtg = dev->getVtg();
-                cout << "New Vtg KPH(" << vtg->getKmph() << ") angle(" << vtg->getTrueAng() << ")" << endl;
+                std::cout << "New Vtg KPH(" << vtg->getKmph() << ") angle(" << vtg->getTrueAng() << ")" << std::endl;
             } else if (base.getType().compare("GPGSV") == 0) {
-                cout << "Tossing GSV message" << endl;
+                std::cout << "Tossing GSV message" << std::endl;
             } else {
-                cerr << "Unknown message type: " << line << endl;
+                std::cerr << "Unknown message type: " << line << std::endl;
                 assert(0);
-                throw out_of_range("Unknown message type");
+                throw std::out_of_range("Unknown message type");
             }
         }
     }
@@ -72,11 +71,11 @@ string GpsDevice::getLine() {
     return line;
 }
 
-GpsDevice::GpsDevice(std::string path): _device(path.c_str(), fstream::in | fstream::binary) {
+GpsDevice::GpsDevice(std::string path): _device(path.c_str(), std::fstream::in | std::fstream::binary) {
     _running = false;
     _path = path;
     if(!_device.is_open()) {
-        throw logic_error("Could not open GPS device");
+        throw std::logic_error("Could not open GPS device");
     }
 }
 
@@ -85,11 +84,23 @@ GpsDevice::~GpsDevice() {
 }
 
 void GpsDevice::run() {
+   /* Initialize and set thread detached attribute */
+   pthread_attr_t attr;
+   pthread_attr_init(&attr);
+   pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
+   
     _running = true;
-    _reader = pthread_create(&_reader, NULL, read, this);
+    _reader = pthread_create(&_reader, &attr, read, this);
+    
+   pthread_attr_destroy(&attr);
 }
 
-void GpsDevice::stop() {
+int GpsDevice::stop() {
+    int rc = -1;
+    void *status;
+    
     _running = false;
-    pthread_join(_reader, NULL);
+    rc = pthread_join(_reader, &status);
+    
+    return rc;
 }

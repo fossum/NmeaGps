@@ -5,10 +5,11 @@
  * Created on December 17, 2014, 11:26 AM
  */
 
-#include "conversions.h"
+#include "utilities.h"
 
 #include <cmath>
 #include <cstdio>
+#include <cstring>
 #include <time.h>
 
 float degToDec(float degree, char dir) {
@@ -74,4 +75,34 @@ int dateTimeToEpoch(unsigned short date[], float time[]) {
     epoch += fractal;
     
     return epoch;
+}
+
+/*
+ * strtok version that handles null fields
+ */
+char *xstrtok(char *line, char *delims) {
+    static char *saveline = NULL;
+    char *p;
+    int n;
+
+    if(line != NULL)
+        saveline = line;
+
+    /*
+    *see if we have reached the end of the line 
+    */
+    if(saveline == NULL || *saveline == '\0') 
+        return(NULL);
+    /*
+    *return the number of characters that aren't delims 
+    */
+    n = strcspn(saveline, delims);
+    p = saveline; /*save start of this token*/
+
+    saveline += n; /*bump past the delim*/
+
+    if(*saveline != '\0') /*trash the delim if necessary*/
+        *saveline++ = '\0';
+
+    return(p);
 }

@@ -4,9 +4,15 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="messages" displayName="messages" projectFiles="true">
+        <itemPath>/home/ericfoss/Documents/NmeaGps/include/messages/NmeaBase.h</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGga.h</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGsa.h</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/include/messages/NmeaRmc.h</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/include/messages/NmeaVtg.h</itemPath>
+      </logicalFolder>
       <itemPath>/home/ericfoss/Documents/NmeaGps/include/GpsDevice.h</itemPath>
-      <itemPath>include/conversions.h</itemPath>
-      <itemPath>include/msg_classes.h</itemPath>
+      <itemPath>include/utilities.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -18,9 +24,15 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="messages" displayName="messages" projectFiles="true">
+        <itemPath>/home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp</itemPath>
+        <itemPath>/home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp</itemPath>
+      </logicalFolder>
       <itemPath>/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp</itemPath>
-      <itemPath>src/conversions.cpp</itemPath>
-      <itemPath>src/msg_classes.cpp</itemPath>
+      <itemPath>src/utilities.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -52,6 +64,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>src</Elem>
+    <Elem>/home/ericfoss/Documents/NmeaGps/include/messages</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -93,7 +106,57 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaBase.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGga.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGsa.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaRmc.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaVtg.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -128,15 +191,9 @@
       </folder>
       <item path="good_gps.log" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="no_track_gps.log" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/msg_classes.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tests/conversionsrunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -149,6 +206,8 @@
       <item path="src/tests/msgtestclass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tests/msgtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="2">
@@ -190,7 +249,57 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaBase.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGga.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaGsa.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaRmc.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/include/messages/NmeaVtg.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="/home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="/home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp"
             ex="false"
             tool="1"
             flavor2="0">
@@ -225,15 +334,9 @@
       </folder>
       <item path="good_gps.log" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="include/conversions.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="include/msg_classes.h" ex="false" tool="3" flavor2="0">
+      <item path="include/utilities.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="no_track_gps.log" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/conversions.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/msg_classes.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tests/conversionsrunner.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -246,6 +349,8 @@
       <item path="src/tests/msgtestclass.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/tests/msgtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/utilities.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -36,8 +36,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/_ext/1494353551/GpsDevice.o \
-	${OBJECTDIR}/src/conversions.o \
-	${OBJECTDIR}/src/msg_classes.o
+	${OBJECTDIR}/_ext/98585804/NmeaBase.o \
+	${OBJECTDIR}/_ext/98585804/NmeaGga.o \
+	${OBJECTDIR}/_ext/98585804/NmeaGsa.o \
+	${OBJECTDIR}/_ext/98585804/NmeaRmc.o \
+	${OBJECTDIR}/_ext/98585804/NmeaVtg.o \
+	${OBJECTDIR}/src/utilities.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -76,15 +80,35 @@ ${OBJECTDIR}/_ext/1494353551/GpsDevice.o: /home/ericfoss/Documents/NmeaGps/src/G
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/1494353551/GpsDevice.o /home/ericfoss/Documents/NmeaGps/src/GpsDevice.cpp
 
-${OBJECTDIR}/src/conversions.o: src/conversions.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
+${OBJECTDIR}/_ext/98585804/NmeaBase.o: /home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/conversions.o src/conversions.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaBase.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp
 
-${OBJECTDIR}/src/msg_classes.o: src/msg_classes.cpp 
+${OBJECTDIR}/_ext/98585804/NmeaGga.o: /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaGga.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp
+
+${OBJECTDIR}/_ext/98585804/NmeaGsa.o: /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaGsa.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp
+
+${OBJECTDIR}/_ext/98585804/NmeaRmc.o: /home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaRmc.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp
+
+${OBJECTDIR}/_ext/98585804/NmeaVtg.o: /home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaVtg.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp
+
+${OBJECTDIR}/src/utilities.o: src/utilities.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/msg_classes.o src/msg_classes.cpp
+	$(COMPILE.cc) -O2 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utilities.o src/utilities.cpp
 
 # Subprojects
 .build-subprojects:
@@ -137,30 +161,82 @@ ${OBJECTDIR}/_ext/1494353551/GpsDevice_nomain.o: ${OBJECTDIR}/_ext/1494353551/Gp
 	    ${CP} ${OBJECTDIR}/_ext/1494353551/GpsDevice.o ${OBJECTDIR}/_ext/1494353551/GpsDevice_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/conversions_nomain.o: ${OBJECTDIR}/src/conversions.o src/conversions.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/conversions.o`; \
+${OBJECTDIR}/_ext/98585804/NmeaBase_nomain.o: ${OBJECTDIR}/_ext/98585804/NmeaBase.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/98585804/NmeaBase.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/conversions_nomain.o src/conversions.cpp;\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaBase_nomain.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaBase.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/conversions.o ${OBJECTDIR}/src/conversions_nomain.o;\
+	    ${CP} ${OBJECTDIR}/_ext/98585804/NmeaBase.o ${OBJECTDIR}/_ext/98585804/NmeaBase_nomain.o;\
 	fi
 
-${OBJECTDIR}/src/msg_classes_nomain.o: ${OBJECTDIR}/src/msg_classes.o src/msg_classes.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/msg_classes.o`; \
+${OBJECTDIR}/_ext/98585804/NmeaGga_nomain.o: ${OBJECTDIR}/_ext/98585804/NmeaGga.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/98585804/NmeaGga.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} "$@.d";\
-	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/msg_classes_nomain.o src/msg_classes.cpp;\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaGga_nomain.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGga.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/src/msg_classes.o ${OBJECTDIR}/src/msg_classes_nomain.o;\
+	    ${CP} ${OBJECTDIR}/_ext/98585804/NmeaGga.o ${OBJECTDIR}/_ext/98585804/NmeaGga_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/98585804/NmeaGsa_nomain.o: ${OBJECTDIR}/_ext/98585804/NmeaGsa.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/98585804/NmeaGsa.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaGsa_nomain.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaGsa.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/98585804/NmeaGsa.o ${OBJECTDIR}/_ext/98585804/NmeaGsa_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/98585804/NmeaRmc_nomain.o: ${OBJECTDIR}/_ext/98585804/NmeaRmc.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/98585804/NmeaRmc.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaRmc_nomain.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaRmc.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/98585804/NmeaRmc.o ${OBJECTDIR}/_ext/98585804/NmeaRmc_nomain.o;\
+	fi
+
+${OBJECTDIR}/_ext/98585804/NmeaVtg_nomain.o: ${OBJECTDIR}/_ext/98585804/NmeaVtg.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp 
+	${MKDIR} -p ${OBJECTDIR}/_ext/98585804
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/_ext/98585804/NmeaVtg.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/_ext/98585804/NmeaVtg_nomain.o /home/ericfoss/Documents/NmeaGps/src/messages/NmeaVtg.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/_ext/98585804/NmeaVtg.o ${OBJECTDIR}/_ext/98585804/NmeaVtg_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/utilities_nomain.o: ${OBJECTDIR}/src/utilities.o src/utilities.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/utilities.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} "$@.d";\
+	    $(COMPILE.cc) -O2 -fPIC  -Dmain=__nomain -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/utilities_nomain.o src/utilities.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/utilities.o ${OBJECTDIR}/src/utilities_nomain.o;\
 	fi
 
 # Run Test Targets
